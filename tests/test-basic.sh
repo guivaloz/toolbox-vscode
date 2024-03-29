@@ -18,14 +18,14 @@ EOF
 
     assert_contents /home/testuser/.var/app/com.visualstudio.code/config/Code/User/settings.json <<'EOF'
 {
-  "remote.containers.dockerPath": "/home/testuser/.local/bin/podman-host"
+  "dev.containers.dockerPath": "/home/testuser/.local/bin/podman-host"
 }
 EOF
 
     assert_contents /root/.vscode-server/data/Machine/settings.json <<'EOF'
 {
-  "remote.containers.copyGitConfig": false,
-  "remote.containers.gitCredentialHelperConfigLocation": "none",
+  "dev.containers.copyGitConfig": false,
+  "dev.containers.gitCredentialHelperConfigLocation": "none",
   "terminal.integrated.defaultProfile.linux": "toolbox",
   "terminal.integrated.profiles.linux": {
     "toolbox": {
@@ -105,7 +105,7 @@ test_running() {
 flatpak list --app --columns=application
 podman inspect toolbox-vscode-test --format={{ range .Config.Env }}{{ println . }}{{ end }}
 flatpak ps --columns=instance,application,pid
-flatpak enter 123456 sh -c 
+flatpak enter 123456 sh -c
         cd $0
         HOME=$1
         shift
